@@ -1,1 +1,5 @@
 .env
+*.sql
+createdb.py
+povoate.py
+*.db
