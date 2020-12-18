@@ -4,3 +4,4 @@ createdb.py
 povoate.py
 *.db
 __pycache__
+.vscode
