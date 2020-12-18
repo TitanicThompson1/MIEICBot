@@ -10,7 +10,7 @@ def get_next_exam(conn, discipline: str):
     c = conn.cursor()
 
     if discipline == None:
-        return _any_exam(c)
+        return _next_exam(c)
     
     if not _discipline_exists(c, discipline):
         return "Error"
@@ -19,7 +19,7 @@ def get_next_exam(conn, discipline: str):
 
 
 
-def get_all_examss(conn, discipline: str):
+def get_all_exams(conn, discipline: str):
     c = conn.cursor()
 
     if discipline == None:
@@ -28,7 +28,34 @@ def get_all_examss(conn, discipline: str):
     if not _discipline_exists(c, discipline):
         return "Error"
 
-    return _all_examss_dscpl(c, discipline)
+    return _all_exams_dscpl(c, discipline)
+
+
+def get_next_deadline(conn, discipline):
+    c = conn.cursor()
+
+    if discipline == None:
+        return _next_deadline(c)
+    
+    if not _discipline_exists(c, discipline):
+        return "Error"
+
+    return _next_dd_dscpl(c, discipline)
+
+
+
+
+
+def _next_deadline(c):
+    c.execute('''
+    SELECT name, date 
+    FROM Assigment, Discipline
+    WHERE Assigment.idDiscipline=Discipline.idDiscipline
+    ORDER BY date(date) 
+    ASC Limit 1;
+    ''')
+    
+    return c.fetchone()
 
 
 def _all_exams(c):
@@ -57,7 +84,7 @@ def _discipline_exists(c, discipline):
     return c.fetchone() != None
 
 
-def _all_examss_dscpl(c, discipline):
+def _all_exams_dscpl(c, discipline):
     dscp_upper =discipline.upper()
 
     tuple_querry = (dscp_upper,)
@@ -77,7 +104,7 @@ def _all_examss_dscpl(c, discipline):
 
 
 def _next_exam_dscpl(c, discipline):
-    dscp_upper =discipline.upper()
+    dscp_upper = discipline.upper()
 
     tuple_querry = (dscp_upper,)
 
@@ -94,7 +121,25 @@ def _next_exam_dscpl(c, discipline):
 
 
 
-def _any_exam(c):
+def _next_dd_dscpl(c, discipline):
+    dscp_upper = discipline.upper()
+
+    tuple_querry = (dscp_upper,)
+
+    c.execute('''
+    SELECT name, date 
+    FROM Assigment, Discipline
+    WHERE Assigment.idDiscipline=Discipline.idDiscipline AND
+            Discipline.name=?
+    ORDER BY date(date) 
+    ASC Limit 1;
+    ''', tuple_querry)
+
+    return c.fetchone()    
+
+
+
+def _next_exam(c):
     c.execute('''
     SELECT name, date 
     FROM Exam, Discipline

@@ -12,7 +12,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 
 
-@bot.command(name='nextExam', help=' [discipline] Gets with the next exam')
+@bot.command(name='nextExam', help='[discipline] Gets with the next exam')
 async def nextExam(ctx, discipline: str = None):
     conn = connect_database()
     
@@ -25,11 +25,11 @@ async def nextExam(ctx, discipline: str = None):
     close_db(conn)
 
 
-@bot.command(name='allExams', help='Responds with the next exam')
+@bot.command(name='allExams', help='[discipline] Gets all exams')
 async def allExams(ctx, discipline: str = None):
     conn = connect_database()
     
-    server_resp = get_all_examss(conn, discipline)
+    server_resp = get_all_exams(conn, discipline)
     if server_resp == "Error":
         raise commands.CommandError()
     
@@ -40,8 +40,29 @@ async def allExams(ctx, discipline: str = None):
 
 
 
+@bot.command(name='nextDeadline', help='Responds with the next exam')
+async def nextDeadline(ctx, discipline: str = None):
+    conn = connect_database()
+    
+    server_resp = get_next_deadline(conn, discipline)
+    if server_resp == "Error":
+        raise commands.CommandError()
+    
+
+    await send_resp_nextdd(ctx, server_resp, discipline != None)
+    
+    close_db(conn)
+
+
+
+
 @nextExam.error
 async def nextExam_error(ctx, error):
+    await ctx.send("I'm sorry, but that discipline does not exist!")
+
+
+@allExams.error
+async def allExam_error(ctx, error):
     await ctx.send("I'm sorry, but that discipline does not exist!")
 
 

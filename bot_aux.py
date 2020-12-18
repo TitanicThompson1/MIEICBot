@@ -14,6 +14,7 @@ async def send_resp_nextexam(ctx, server_resp, has_discipline):
 
 
 async def send_resp_allexams(ctx, server_resp, has_discipline):
+
     response = ''
     if server_resp == None and not has_discipline:
         response = 'There aren\'t any more exams! Enjoy your vacations :partying_face:'
@@ -25,3 +26,17 @@ async def send_resp_allexams(ctx, server_resp, has_discipline):
 
     await ctx.send(response)
     
+
+async def send_resp_nextdd(ctx, server_resp, has_discipline):
+
+    response = ''
+    if server_resp == None and not has_discipline:
+        response = 'There aren\'t any more assigments! Enjoy your vacations :partying_face:'
+    elif server_resp == None and has_discipline:  
+        response = 'This class does not have any more assigments! You\'re free!'
+    elif has_discipline:
+        response = f'The next assigments of {server_resp[0]} is due to {server_resp[1]}'
+    else:
+        response = f'The next assigment is of {server_resp[0]} and it\'s due to {server_resp[1]}'
+
+    await ctx.send(response)
