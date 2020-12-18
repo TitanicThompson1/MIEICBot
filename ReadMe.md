@@ -7,7 +7,7 @@ The next list of features aren't implemented and no one is working on them. If y
 - Eliminar periodicamente os exames "vencidos"
 - No comando !nextExam ter em consideração se o exame já passou
 - Criar comando !nextDeadline [class]
-- Criar comando !allExams ae !allDeadlines
+- Criar comando e !allDeadlines
 
 
 ## How to Contribute
