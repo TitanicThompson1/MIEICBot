@@ -3,3 +3,4 @@
 createdb.py
 povoate.py
 *.db
+__pycache__
