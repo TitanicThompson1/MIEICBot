@@ -4,10 +4,10 @@
 
 The next list of features aren't implemented and no one is working on them. If you want to contribute to this project, pick one and contact me to cross it from the list! More information on [How to Contribute](##How To Contribute) 
 
-- Eliminar periodicamente os exames "vencidos"
-- No comando !nextExam ter em consideração se o exame já passou
-- Criar comando !nextDeadline [class]
-- Criar comando !allExams ae !allDeadlines
+- Periodically eliminate past exams
+- The command **!nextExam** must have in consideration if the exam already passed
+- Create command **!nextDeadline** 
+- Create command **!allExams** and **!allDeadlines**
 
 
 ## How to Contribute
